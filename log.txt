@@ -133,3 +133,9 @@ Timestamp: Mon Oct 23 2023 16:50:35 GMT-0400 (Eastern Daylight Time)
 URL: /favicon.ico
 Timestamp: Mon Oct 23 2023 16:50:35 GMT-0400 (Eastern Daylight Time)
 
+::1 - - [26/Oct/2023:17:40:05 +0000] "GET /composers HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
+::1 - - [26/Oct/2023:17:41:54 +0000] "GET /documentation HTTP/1.1" 404 152 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
+::1 - - [26/Oct/2023:17:42:03 +0000] "GET /public/documentation HTTP/1.1" 404 159 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
+::1 - - [26/Oct/2023:17:42:08 +0000] "GET /composers HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
+::1 - - [26/Oct/2023:17:42:39 +0000] "GET /public/documentation.html HTTP/1.1" 404 164 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
+::1 - - [26/Oct/2023:17:43:29 +0000] "GET /documentation HTTP/1.1" 404 152 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
