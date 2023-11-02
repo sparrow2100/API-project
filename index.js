@@ -24,7 +24,11 @@ let topComposers = [
   {
     name: "Elizabeth Maconchy",
     lifespan: "1907-1994",
-    era: "modern",
+    era: {
+      name: "modern",
+      description:
+        "The modern era in classical music, roughly from the late 19th to the mid-20th century, witnessed a departure from traditional tonal structures and the exploration of dissonance. Composers during this period experimented with new forms, tonalities, and embraced diverse musical styles, reflecting the societal and technological shifts of the time.",
+    },
     bio: "placeholder",
     nationality: "Irish/English",
     img: "placeholder",
@@ -52,9 +56,13 @@ let topComposers = [
     ],
   },
   {
-    name: "Marie-Juliette (Lili) Boulanger",
+    name: "Lili Boulanger",
     lifespan: "1893-1918",
-    era: "romantic",
+    era: {
+      name: "romantic",
+      description:
+        "The romantic era in classical music, spanning roughly the 19th century, unfolded as a passionate and emotive symphony of individual expression, where composers delved into profound emotional depths, embraced rich harmonies, and championed programmatic storytelling through their music; characterized by the pursuit of intense personal expression and the exploration of diverse themes, this era witnessed the rise of nationalism, virtuosic performances, and the birth of iconic masterpieces.",
+    },
     bio: "placeholder",
     nationality: "French",
     img: "placeholder",
@@ -83,7 +91,11 @@ let topComposers = [
   {
     name: "Fanny Mendelssohn",
     lifespan: "1805-1847",
-    era: "early romantic",
+    era: {
+      name: "romantic",
+      description:
+        "The romantic era in classical music, spanning roughly the 19th century, unfolded as a passionate and emotive symphony of individual expression, where composers delved into profound emotional depths, embraced rich harmonies, and championed programmatic storytelling through their music; characterized by the pursuit of intense personal expression and the exploration of diverse themes, this era witnessed the rise of nationalism, virtuosic performances, and the birth of iconic masterpieces.",
+    },
     bio: "placeholder",
     nationality: "German",
     img: "placeholder",
@@ -113,7 +125,11 @@ let topComposers = [
   {
     name: "Sophie-Carmen Eckhardt-Gramatte",
     lifespan: "1899-1974",
-    era: "modern",
+    era: {
+      name: "modern",
+      description:
+        "The modern era in classical music, roughly from the late 19th to the mid-20th century, witnessed a departure from traditional tonal structures and the exploration of dissonance. Composers during this period experimented with new forms, tonalities, and embraced diverse musical styles, reflecting the societal and technological shifts of the time.",
+    },
     bio: "placeholder",
     nationality: "Russian/Canadian",
     img: "placeholder",
@@ -142,7 +158,11 @@ let topComposers = [
   {
     name: "Clara Schumann",
     lifespan: "1819-1896",
-    era: "romantic",
+    era: {
+      name: "romantic",
+      description:
+        "The romantic era in classical music, spanning roughly the 19th century, unfolded as a passionate and emotive symphony of individual expression, where composers delved into profound emotional depths, embraced rich harmonies, and championed programmatic storytelling through their music; characterized by the pursuit of intense personal expression and the exploration of diverse themes, this era witnessed the rise of nationalism, virtuosic performances, and the birth of iconic masterpieces.",
+    },
     bio: "placeholder",
     nationality: "German",
     img: "placeholder",
@@ -171,7 +191,11 @@ let topComposers = [
   {
     name: "Barbara Strozzi",
     lifespan: "1619-1677",
-    era: "baroque",
+    era: {
+      name: "baroque",
+      description:
+        "The baroque era, flourishing from the early 17th to the mid-18th century, was marked by ornate and expressive music, defined by elaborate ornamentation and the emergence of instrumental forms like the concerto and the sonata. ",
+    },
     bio: "placeholder",
     nationality: "Italian",
     img: "placeholder",
@@ -193,7 +217,11 @@ let topComposers = [
   {
     name: "Francesca Caccini",
     lifespan: "1587-1640",
-    era: "baroque",
+    era: {
+      name: "baroque",
+      description:
+        "The baroque era, flourishing from the early 17th to the mid-18th century, was marked by ornate and expressive music, defined by elaborate ornamentation and the emergence of instrumental forms like the concerto and the sonata. ",
+    },
     bio: "placeholder",
     nationality: "Italian",
     img: "placeholder",
@@ -222,7 +250,11 @@ let topComposers = [
   {
     name: "Elisabeth Jacquet de La Guerre",
     lifespan: "1665-1729",
-    era: "baroque",
+    era: {
+      name: "baroque",
+      description:
+        "The baroque era, flourishing from the early 17th to the mid-18th century, was marked by ornate and expressive music, defined by elaborate ornamentation and the emergence of instrumental forms like the concerto and the sonata. ",
+    },
     bio: "placeholder",
     nationality: "French",
     img: "placeholder",
@@ -250,7 +282,11 @@ let topComposers = [
   {
     name: "Hildegard von Bingen",
     lifespan: "1098-1179",
-    era: "medieval",
+    era: {
+      name: "medieval",
+      description:
+        "The medieval era in classical music, spanning approximately the 5th to the 15th century, was characterized by a sacred and monophonic musical landscape, where Gregorian chant and plainchant flourished. This era embraced modal scales, intricate vocal textures, and often centred around Christian themes.",
+    },
     bio: "placeholder",
     nationality: "German",
     img: "placeholder",
@@ -278,7 +314,11 @@ let topComposers = [
   {
     name: "Valerie Coleman",
     lifespan: "1970-present",
-    era: "modern",
+    era: {
+      name: "post-modern",
+      description:
+        "The latter half of the 20th century  into the 21st century. It draws from a wide range of musical styles from various periods, embracing eclecticism and rejecting the strict adherence to certain modernist principles.",
+    },
     bio: "placeholder",
     nationality: "American",
     img: "placeholder",
@@ -315,6 +355,7 @@ app.get("/", (req, res) => {
   res.send("Women are great composers!");
 });
 
+//get data about a composer by her name
 app.get("/composers/:name", (req, res) => {
   const { name } = req.params;
   const composer = topComposers.find((composer) => composer.name === name);
