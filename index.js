@@ -144,21 +144,21 @@ let topComposers = [
     lifespan: "1819-1896",
     era: "romantic",
     bio: "placeholder",
-    nationality: "",
+    nationality: "German",
     img: "placeholder",
     works: [
       {
         piece: "Piano Concerto in A minor",
         date: "1836",
         description: "Op.7, for solo piano and orchestra.",
-        recording: "",
+        recording: "placeholder",
       },
       {
         piece: "Piano Sonata in G minor",
         date: "1842",
         description:
           "Sonata for solo piano. Written 1841-1842 and published in 1991.",
-        recording: "",
+        recording: "placeholder",
       },
       {
         piece: "Valses romantiques",
@@ -286,7 +286,7 @@ let topComposers = [
       {
         piece: "Seven O'Clock Shout",
         date: "2020",
-        description: "orchestral",
+        description: "for orchestra",
         recording: "https://www.youtube.com/watch?v=k3vO2xNxA8w",
       },
       {
@@ -308,11 +308,23 @@ let topComposers = [
 // GET requests
 
 app.get("/composers", (req, res) => {
-  res.json(topComposers);
+  res.status(200).json(topComposers);
 });
 
 app.get("/", (req, res) => {
   res.send("Women are great composers!");
+});
+
+app.get("/composers/:name", (req, res) => {
+  const { name } = req.params;
+  const composer = topComposers.find((composer) => composer.name === name);
+  console.log(name);
+
+  if (composer) {
+    res.status(200).json(composer);
+  } else {
+    res.status(400).send("composer not found");
+  }
 });
 
 // error handling
