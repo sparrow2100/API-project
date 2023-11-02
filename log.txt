@@ -165,3 +165,6 @@ Timestamp: Mon Oct 23 2023 16:50:35 GMT-0400 (Eastern Daylight Time)
 ::1 - - [02/Nov/2023:17:04:26 +0000] "GET /composers/era/post-modern HTTP/1.1" 200 255 "-" "PostmanRuntime/7.34.0"
 ::1 - - [02/Nov/2023:17:04:35 +0000] "GET /composers/era/classical HTTP/1.1" 500 16 "-" "PostmanRuntime/7.34.0"
 ::1 - - [02/Nov/2023:17:04:45 +0000] "GET /composers/era/baroque HTTP/1.1" 200 261 "-" "PostmanRuntime/7.34.0"
+::1 - - [02/Nov/2023:17:33:17 +0000] "GET /composers/life/Fanny%20Mendelssohn HTTP/1.1" 200 98 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
+::1 - - [02/Nov/2023:17:33:53 +0000] "GET /composers/life/Elizabeth%20Jacquet%20de%20La%20Guerre HTTP/1.1" 500 16 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
+::1 - - [02/Nov/2023:17:34:25 +0000] "GET /composers/life/Sophie-Carmen%20Eckhardt-Gramatte HTTP/1.1" 200 122 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"

@@ -24,6 +24,7 @@ let topComposers = [
   {
     name: "Elizabeth Maconchy",
     life: {
+      fullName: "Elizabeth Maconchy",
       lifespan: "1907-1994",
       bio: "placeholder",
       nationality: "Irish/English",
@@ -61,6 +62,7 @@ let topComposers = [
   {
     name: "Lili Boulanger",
     life: {
+      fullName: "Lili Boulanger",
       lifespan: "1893-1918",
       bio: "placeholder",
       nationality: "French",
@@ -98,6 +100,7 @@ let topComposers = [
   {
     name: "Fanny Mendelssohn",
     life: {
+      fullName: "Fanny Mendelssohn",
       lifespan: "1805-1847",
       bio: "placeholder",
       nationality: "German",
@@ -136,6 +139,7 @@ let topComposers = [
   {
     name: "Sophie-Carmen Eckhardt-Gramatte",
     life: {
+      fullName: "Sophie-Carmen Eckhardt-Gramatte",
       lifespan: "1899-1974",
       bio: "placeholder",
       nationality: "Russian/Canadian",
@@ -173,6 +177,7 @@ let topComposers = [
   {
     name: "Clara Schumann",
     life: {
+      fullName: "Clara Schumann",
       lifespan: "1819-1896",
       bio: "placeholder",
       nationality: "German",
@@ -210,6 +215,7 @@ let topComposers = [
   {
     name: "Barbara Strozzi",
     life: {
+      fullName: "Barbara Strozzi",
       lifespan: "1619-1677",
       bio: "placeholder",
       nationality: "Italian",
@@ -240,6 +246,7 @@ let topComposers = [
   {
     name: "Francesca Caccini",
     life: {
+      fullName: "Francesca Caccini",
       lifespan: "1587-1640",
       bio: "placeholder",
       nationality: "Italian",
@@ -277,6 +284,7 @@ let topComposers = [
   {
     name: "Elisabeth Jacquet de La Guerre",
     life: {
+      fullName: "Elisabeth Jacquet de La Guerre",
       lifespan: "1665-1729",
       bio: "placeholder",
       nationality: "French",
@@ -313,6 +321,7 @@ let topComposers = [
   {
     name: "Hildegard von Bingen",
     life: {
+      fullName: "Hildegard von Bingen",
       lifespan: "1098-1179",
       bio: "placeholder",
       nationality: "German",
@@ -349,6 +358,7 @@ let topComposers = [
   {
     name: "Valerie Coleman",
     life: {
+      fullName: "Valerie Coleman",
       lifespan: "1970-present",
       bio: "placeholder",
       nationality: "American",
@@ -386,6 +396,7 @@ let topComposers = [
 
 // GET requests
 
+//GET all data
 app.get("/composers", (req, res) => {
   res.status(200).json(topComposers);
 });
@@ -417,6 +428,19 @@ app.get("/composers/era/:eraName", (req, res) => {
     res.status(200).json(era);
   } else {
     res.status(400).send("no such era");
+  }
+});
+
+//GET life info about composers based on full name
+app.get("/composers/life/:fullName", (req, res) => {
+  const { fullName } = req.params;
+  const life = topComposers.find(
+    (composer) => composer.life.fullName === fullName
+  ).life;
+  if (life) {
+    res.status(200).json(life);
+  } else {
+    res.status(400).send("no such life");
   }
 });
 
