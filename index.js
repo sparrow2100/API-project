@@ -23,14 +23,17 @@ app.use(express.static("public"));
 let topComposers = [
   {
     name: "Elizabeth Maconchy",
-    lifespan: "1907-1994",
+    life: {
+      lifespan: "1907-1994",
+      bio: "placeholder",
+      nationality: "Irish/English",
+    },
     era: {
       name: "modern",
       description:
         "The modern era in classical music, roughly from the late 19th to the mid-20th century, witnessed a departure from traditional tonal structures and the exploration of dissonance. Composers during this period experimented with new forms, tonalities, and embraced diverse musical styles, reflecting the societal and technological shifts of the time.",
     },
-    bio: "placeholder",
-    nationality: "Irish/English",
+
     img: "placeholder",
     works: [
       {
@@ -57,14 +60,18 @@ let topComposers = [
   },
   {
     name: "Lili Boulanger",
-    lifespan: "1893-1918",
+    life: {
+      lifespan: "1893-1918",
+      bio: "placeholder",
+      nationality: "French",
+    },
+
     era: {
       name: "romantic",
       description:
         "The romantic era in classical music, spanning roughly the 19th century, unfolded as a passionate and emotive symphony of individual expression, where composers delved into profound emotional depths, embraced rich harmonies, and championed programmatic storytelling through their music; characterized by the pursuit of intense personal expression and the exploration of diverse themes, this era witnessed the rise of nationalism, virtuosic performances, and the birth of iconic masterpieces.",
     },
-    bio: "placeholder",
-    nationality: "French",
+
     img: "placeholder",
     works: [
       {
@@ -90,14 +97,18 @@ let topComposers = [
   },
   {
     name: "Fanny Mendelssohn",
-    lifespan: "1805-1847",
+    life: {
+      lifespan: "1805-1847",
+      bio: "placeholder",
+      nationality: "German",
+    },
+
     era: {
       name: "romantic",
       description:
         "The romantic era in classical music, spanning roughly the 19th century, unfolded as a passionate and emotive symphony of individual expression, where composers delved into profound emotional depths, embraced rich harmonies, and championed programmatic storytelling through their music; characterized by the pursuit of intense personal expression and the exploration of diverse themes, this era witnessed the rise of nationalism, virtuosic performances, and the birth of iconic masterpieces.",
     },
-    bio: "placeholder",
-    nationality: "German",
+
     img: "placeholder",
     works: [
       {
@@ -124,14 +135,18 @@ let topComposers = [
   },
   {
     name: "Sophie-Carmen Eckhardt-Gramatte",
-    lifespan: "1899-1974",
+    life: {
+      lifespan: "1899-1974",
+      bio: "placeholder",
+      nationality: "Russian/Canadian",
+    },
+
     era: {
       name: "modern",
       description:
         "The modern era in classical music, roughly from the late 19th to the mid-20th century, witnessed a departure from traditional tonal structures and the exploration of dissonance. Composers during this period experimented with new forms, tonalities, and embraced diverse musical styles, reflecting the societal and technological shifts of the time.",
     },
-    bio: "placeholder",
-    nationality: "Russian/Canadian",
+
     img: "placeholder",
     works: [
       {
@@ -157,14 +172,18 @@ let topComposers = [
   },
   {
     name: "Clara Schumann",
-    lifespan: "1819-1896",
+    life: {
+      lifespan: "1819-1896",
+      bio: "placeholder",
+      nationality: "German",
+    },
+
     era: {
       name: "romantic",
       description:
         "The romantic era in classical music, spanning roughly the 19th century, unfolded as a passionate and emotive symphony of individual expression, where composers delved into profound emotional depths, embraced rich harmonies, and championed programmatic storytelling through their music; characterized by the pursuit of intense personal expression and the exploration of diverse themes, this era witnessed the rise of nationalism, virtuosic performances, and the birth of iconic masterpieces.",
     },
-    bio: "placeholder",
-    nationality: "German",
+
     img: "placeholder",
     works: [
       {
@@ -190,14 +209,18 @@ let topComposers = [
   },
   {
     name: "Barbara Strozzi",
-    lifespan: "1619-1677",
+    life: {
+      lifespan: "1619-1677",
+      bio: "placeholder",
+      nationality: "Italian",
+    },
+
     era: {
       name: "baroque",
       description:
         "The baroque era, flourishing from the early 17th to the mid-18th century, was marked by ornate and expressive music, defined by elaborate ornamentation and the emergence of instrumental forms like the concerto and the sonata. ",
     },
-    bio: "placeholder",
-    nationality: "Italian",
+
     img: "placeholder",
     works: [
       {
@@ -216,14 +239,18 @@ let topComposers = [
   },
   {
     name: "Francesca Caccini",
-    lifespan: "1587-1640",
+    life: {
+      lifespan: "1587-1640",
+      bio: "placeholder",
+      nationality: "Italian",
+    },
+
     era: {
       name: "baroque",
       description:
         "The baroque era, flourishing from the early 17th to the mid-18th century, was marked by ornate and expressive music, defined by elaborate ornamentation and the emergence of instrumental forms like the concerto and the sonata. ",
     },
-    bio: "placeholder",
-    nationality: "Italian",
+
     img: "placeholder",
     works: [
       {
@@ -249,14 +276,18 @@ let topComposers = [
   },
   {
     name: "Elisabeth Jacquet de La Guerre",
-    lifespan: "1665-1729",
+    life: {
+      lifespan: "1665-1729",
+      bio: "placeholder",
+      nationality: "French",
+    },
+
     era: {
       name: "baroque",
       description:
         "The baroque era, flourishing from the early 17th to the mid-18th century, was marked by ornate and expressive music, defined by elaborate ornamentation and the emergence of instrumental forms like the concerto and the sonata. ",
     },
-    bio: "placeholder",
-    nationality: "French",
+
     img: "placeholder",
     works: [
       {
@@ -281,14 +312,18 @@ let topComposers = [
   },
   {
     name: "Hildegard von Bingen",
-    lifespan: "1098-1179",
+    life: {
+      lifespan: "1098-1179",
+      bio: "placeholder",
+      nationality: "German",
+    },
+
     era: {
       name: "medieval",
       description:
         "The medieval era in classical music, spanning approximately the 5th to the 15th century, was characterized by a sacred and monophonic musical landscape, where Gregorian chant and plainchant flourished. This era embraced modal scales, intricate vocal textures, and often centred around Christian themes.",
     },
-    bio: "placeholder",
-    nationality: "German",
+
     img: "placeholder",
     works: [
       {
@@ -313,14 +348,18 @@ let topComposers = [
   },
   {
     name: "Valerie Coleman",
-    lifespan: "1970-present",
+    life: {
+      lifespan: "1970-present",
+      bio: "placeholder",
+      nationality: "American",
+    },
+
     era: {
       name: "post-modern",
       description:
         "The latter half of the 20th century  into the 21st century. It draws from a wide range of musical styles from various periods, embracing eclecticism and rejecting the strict adherence to certain modernist principles.",
     },
-    bio: "placeholder",
-    nationality: "American",
+
     img: "placeholder",
     works: [
       {
