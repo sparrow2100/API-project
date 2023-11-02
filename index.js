@@ -1,6 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
 const fs = require("fs");
+const bodyParser = require("body-parser");
+const uuid = require("uuid");
 const path = require("path");
 const app = express();
 
@@ -17,6 +19,8 @@ app.use(morgan("combined", { stream: accessLogStream }));
 //serve documentation.html from the public folder
 
 app.use(express.static("public"));
+
+app.use(bodyParser.json());
 
 //composers array
 
@@ -394,7 +398,41 @@ let topComposers = [
   },
 ];
 
-// GET requests
+//users array
+
+let users = [
+  {
+    name: "Example name Jane",
+    id: 1,
+  },
+];
+
+//CREATE new user
+app.post("/users", (req, res) => {
+  const newUser = req.body;
+  if (newUser.name) {
+    newUser.id = uuid.v4();
+    users.push(newUser);
+    res.status(201).json(newUser);
+  } else {
+    res.status(400).send("user needs a name");
+  }
+});
+
+//UPDATE user name
+app.put("/users/:id", (req, res) => {
+  const { id } = req.params;
+  const updatedUser = req.body;
+  let user = users.find((user) => user.id == id);
+  if (user) {
+    user.name = updatedUser.name;
+    res.status(200).json(user);
+  } else {
+    res.status(400).send("user not found");
+  }
+});
+
+// GET requests (READ)
 
 //GET all data
 app.get("/composers", (req, res) => {
@@ -440,7 +478,7 @@ app.get("/composers/life/:fullName", (req, res) => {
   if (life) {
     res.status(200).json(life);
   } else {
-    res.status(400).send("no such life");
+    res.status(400).send("life does not exist");
   }
 });
 
