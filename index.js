@@ -355,7 +355,7 @@ app.get("/", (req, res) => {
   res.send("Women are great composers!");
 });
 
-//get data about a composer by her name
+//GET data about a composer by her name
 app.get("/composers/:name", (req, res) => {
   const { name } = req.params;
   const composer = topComposers.find((composer) => composer.name === name);
@@ -365,6 +365,19 @@ app.get("/composers/:name", (req, res) => {
     res.status(200).json(composer);
   } else {
     res.status(400).send("composer not found");
+  }
+});
+
+//GET info (name, description) about era
+app.get("/composers/era/:eraName", (req, res) => {
+  const { eraName } = req.params;
+  const era = topComposers.find(
+    (composer) => composer.era.name === eraName
+  ).era;
+  if (era) {
+    res.status(200).json(era);
+  } else {
+    res.status(400).send("no such era");
   }
 });
 
