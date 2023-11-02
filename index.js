@@ -404,6 +404,7 @@ let users = [
   {
     name: "Example name Jane",
     id: 1,
+    favoriteComposers: ["Elizabeth Maconchy", "Lili Boulanger"],
   },
 ];
 
@@ -416,6 +417,56 @@ app.post("/users", (req, res) => {
     res.status(201).json(newUser);
   } else {
     res.status(400).send("user needs a name");
+  }
+});
+
+//CREATE favourite composer
+app.post("/users/:id/:composerName", (req, res) => {
+  const { id, composerName } = req.params;
+  const favComposer = req.body;
+  let user = users.find((user) => user.id == id);
+  if (user) {
+    user.favoriteComposers.push(composerName);
+    res
+      .status(200)
+      .send(
+        `${composerName} has been added to user ${id}'s favorite composers`
+      );
+  } else {
+    res.status(400).send("user not found");
+  }
+});
+
+//DELETE favourite composer
+app.delete("/users/:id/:composerName", (req, res) => {
+  const { id, composerName } = req.params;
+
+  let user = users.find((user) => user.id == id);
+  if (user) {
+    user.favoriteComposers = user.favoriteComposers.filter(
+      (composer) => composer !== composerName
+    );
+    res
+      .status(200)
+      .send(
+        `${composerName} has been removed from user ${id}'s favorite composers`
+      );
+  } else {
+    res.status(400).send("user not found");
+  }
+});
+
+//DELETE user
+app.delete("/users/:id", (req, res) => {
+  const { id } = req.params;
+
+  let user = users.find((user) => user.id == id);
+  if (user) {
+    users = users.filter((user) => user.id != id);
+
+    res.status(200).send(`user ${id} has been deleted`);
+  } else {
+    res.status(400).send("user not found");
   }
 });
 
