@@ -510,6 +510,7 @@ app.get("/composers/:name", (req, res) => {
 //GET info (name, description) about era
 app.get("/composers/era/:eraName", (req, res) => {
   const { eraName } = req.params;
+  console.log("eraName", eraName);
   const era = topComposers.find(
     (composer) => composer.era.name === eraName
   ).era;

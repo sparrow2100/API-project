@@ -7,5 +7,180 @@
   </head>
   <body>
     <h1>Women Composers of Classical Music API</h1>
+    <h2>Endpoints</h2>
+    <!-- <h3>Create a new user</h3>
+    <ul>
+      <li>URL: "/users"</li>
+      <li>Method: POST</li>
+      <li>Successful Response (code): 201</li>
+      <li><code> { "name": "Jane" "id": "34" } </code></li>
+      <li>Error Response (code): 400, (body): "user needs a name"</li>
+    </ul> -->
+    <table>
+      <thead>
+        <tr>
+          <th>Endpoint</th>
+          <th>URL</th>
+          <th>Method</th>
+          <th>Successful Response</th>
+          <th>Error Response</th>
+          <th>Request Parameters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Create a new user</td>
+          <td>/users</td>
+          <td>POST</td>
+          <td>
+            Status: 201 <br />
+            Body: A JSON object with data about the user, and a unique ID. Ex:
+            <code>
+              { "name": "Jane Doe", "favoriteComposers: []", "id": "123456", }
+            </code>
+          </td>
+          <td>
+            Status: 400 <br />
+            Body: "user needs a name"
+          </td>
+          <td>
+            Body: A JSON object with data about the user. Ex:
+            <code> { "name": "Jane Doe", "favoriteComposers: []", } </code>
+          </td>
+        </tr>
+        <tr>
+          <td>Add a composer to favourite composers</td>
+          <td>/users/:id/:composerName</td>
+          <td>POST</td>
+          <td>
+            Status: 200 <br />
+            Body: A message, ex. "Elizabeth Maconchy has been added to user
+            123456's favorite composers"
+          </td>
+          <td>
+            Status: 400 <br />
+            Body: "user not found"
+          </td>
+          <td>Path parameter: The name of the composer to be added.</td>
+        </tr>
+        <tr>
+          <td>Delete a favourite composer</td>
+          <td>/users/:id/:composerName</td>
+          <td>DELETE</td>
+          <td>
+            Status: 200<br />
+            Body: ex. "Hildegard von Bingen has been removed from user 123456's
+            favorite composers"
+          </td>
+          <td>
+            Status: 400 <br />
+            Body: "user not found"
+          </td>
+          <td>Name of the composer to be deleted</td>
+        </tr>
+        <tr>
+          <td>Delete user</td>
+          <td>/users/:id</td>
+          <td>DELETE</td>
+          <td>
+            Status: 200 <br />
+            Body: "user 123456 has been deleted"
+          </td>
+          <td>
+            Status: 400 <br />
+            Body: "user not found"
+          </td>
+          <td>id of user to be deleted</td>
+        </tr>
+        <tr>
+          <td>Update the name of a user</td>
+          <td>/users/:id</td>
+          <td>PUT</td>
+          <td>
+            Status: 200 <br />
+            Body: A JSON object with the user's information, including the
+            updated name. <br />
+            Ex: <code> { "name": "updatedName", "id": "123456", } </code>
+          </td>
+          <td>
+            Status: 400 <br />
+            Body: "user not found"
+          </td>
+          <td>The new user name</td>
+        </tr>
+        <tr>
+          <td>Get all composer data</td>
+          <td>/composers</td>
+          <td>GET</td>
+          <td>
+            Status: 200 <br />
+            Body: A JSON object with all the data about women composers
+          </td>
+          <td>None</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Get data about a composer using her name</td>
+          <td>/composers/:name</td>
+          <td>GET</td>
+          <td>
+            Status: 200 <br />
+            Body: A JSON object with data about the composer <br />
+            Ex. (not the full amount of data)
+            <code>
+              { "name": "Elizabeth Maconchy", "life": { "fullName": "Elizabeth
+              Maconchy", "lifespan": "1907-1994", "bio": "placeholder",
+              "nationality": "Irish/English" },}
+            </code>
+          </td>
+          <td>
+            Status: 400 <br />
+            Body: "composer not found"
+          </td>
+          <td>The name of the composer</td>
+        </tr>
+        <tr>
+          <td>Get name and description of era</td>
+          <td>/composers/era/:eraName</td>
+          <td>GET</td>
+          <td>
+            Status: 200 <br />
+            Body: A JSON object with information about the era <br />
+            Ex:
+            <code>
+              { "name": "baroque", "description": "The baroque era, flourishing
+              from the early 17th to the mid-18th century, was marked by ornate
+              and expressive music, defined by elaborate ornamentation and the
+              emergence of instrumental forms like the concerto and the sonata.
+              " }
+            </code>
+          </td>
+          <td>
+            Status: 400 <br />
+            Body: "no such era"
+          </td>
+          <td>The era name</td>
+        </tr>
+        <tr>
+          <td>Get life info about composer based on full name</td>
+          <td>/composers/life/:fullName</td>
+          <td>GET</td>
+          <td>
+            Status: 200 <br />
+            Body: JSON object with information about a composer's life. <br />
+            Ex.
+            <code>
+              { "fullName": "Elizabeth Maconchy", "lifespan": "1907-1994",
+              "bio": "placeholder", "nationality": "Irish/English" }
+            </code>
+          </td>
+          <td>
+            Status: 400 <br />
+            Body: "life does not exist"
+          </td>
+          <td>The composer's full name</td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>
