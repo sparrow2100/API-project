@@ -36,87 +36,101 @@
             Status: 201 <br />
             Body: A JSON object with data about the user, and a unique ID. Ex:
             <code>
-              { "name": "Jane Doe", "favoriteComposers: []", "id": "123456", }
+              { "name": "Jane Doe", "username": "exampleusername", "password":
+              "examplepassword", "email": "name@email.com", "birthday":
+              "09-09-1999", "favoriteComposers: []", "id": "123456", }
             </code>
           </td>
           <td>
             Status: 400 <br />
-            Body: "user needs a name"
+            Body: "Error: (error)"
           </td>
           <td>
             Body: A JSON object with data about the user. Ex:
-            <code> { "name": "Jane Doe", "favoriteComposers: []", } </code>
+            <code>
+              { "name": "Jane Doe", "username": "exampleusername", "password":
+              "examplepassword", "email": "name@email.com", "birthday":
+              "09-09-1999", "favoriteComposers: []", "id": "123456", }
+            </code>
           </td>
         </tr>
         <tr>
           <td>Add a composer to favourite composers</td>
-          <td>/users/:id/:composerName</td>
+          <td>/users/:username/favouriteComposers/:composerId</td>
           <td>POST</td>
           <td>
-            Status: 200 <br />
-            Body: A message, ex. "Elizabeth Maconchy has been added to user
-            123456's favorite composers"
+            Status: 201 <br />
+            Body: json with the user information, including the ID for the new
+            composer added to the array of favouriteComposers.
           </td>
           <td>
-            Status: 400 <br />
-            Body: "user not found"
+            Status: 500 <br />
+            Body: "Error: (error)"
           </td>
-          <td>Path parameter: The name of the composer to be added.</td>
+          <td>
+            Path parameter: The ID of the composer to be added, and the username
+            of the user.
+          </td>
         </tr>
         <tr>
           <td>Delete a favourite composer</td>
-          <td>/users/:id/:composerName</td>
+          <td>/users/:username/favouriteComposers/:composerId</td>
           <td>DELETE</td>
           <td>
-            Status: 200<br />
-            Body: ex. "Hildegard von Bingen has been removed from user 123456's
-            favorite composers"
+            Status: 201<br />
+            Body: json with the user data, excluding the ID of the composer that
+            was just deleted from the favouriteComposers array.
           </td>
           <td>
-            Status: 400 <br />
-            Body: "user not found"
+            Status: 500 <br />
+            Body: "Error: (error)"
           </td>
-          <td>Name of the composer to be deleted</td>
+          <td>
+            ID of the composer to be deleted, and the username of the user.
+          </td>
         </tr>
         <tr>
           <td>Delete user</td>
-          <td>/users/:id</td>
+          <td>/users/:username</td>
           <td>DELETE</td>
           <td>
             Status: 200 <br />
-            Body: "user 123456 has been deleted"
+            Body: "username was deleted"
           </td>
           <td>
             Status: 400 <br />
             Body: "user not found"
           </td>
-          <td>id of user to be deleted</td>
+          <td>username of user to be deleted</td>
         </tr>
         <tr>
-          <td>Update the name of a user</td>
-          <td>/users/:id</td>
+          <td>Update user info by username</td>
+          <td>/users/:username</td>
           <td>PUT</td>
           <td>
             Status: 200 <br />
             Body: A JSON object with the user's information, including the
-            updated name. <br />
-            Ex: <code> { "name": "updatedName", "id": "123456", } </code>
+            updated info. <br />
           </td>
           <td>
-            Status: 400 <br />
-            Body: "user not found"
+            Status: 500 <br />
+            Body: "Error: (error)"
           </td>
-          <td>The new user name</td>
+          <td>The new user info, username</td>
         </tr>
         <tr>
           <td>Get all composer data</td>
           <td>/composers</td>
           <td>GET</td>
           <td>
-            Status: 200 <br />
+            Status: 201 <br />
             Body: A JSON object with all the data about women composers
           </td>
-          <td>None</td>
+          <td>
+            Status: 500
+            <br />
+            Body: "Error: (error)"
+          </td>
           <td>None</td>
         </tr>
         <tr>
@@ -126,22 +140,16 @@
           <td>
             Status: 200 <br />
             Body: A JSON object with data about the composer <br />
-            Ex. (not the full amount of data)
-            <code>
-              { "name": "Elizabeth Maconchy", "life": { "fullName": "Elizabeth
-              Maconchy", "lifespan": "1907-1994", "bio": "placeholder",
-              "nationality": "Irish/English" },}
-            </code>
           </td>
           <td>
-            Status: 400 <br />
+            Status: 404 <br />
             Body: "composer not found"
           </td>
           <td>The name of the composer</td>
         </tr>
         <tr>
           <td>Get name and description of era</td>
-          <td>/composers/era/:eraName</td>
+          <td>/eras/:name</td>
           <td>GET</td>
           <td>
             Status: 200 <br />
@@ -156,29 +164,24 @@
             </code>
           </td>
           <td>
-            Status: 400 <br />
-            Body: "no such era"
+            Status: 404 <br />
+            Body: "Era not found."
           </td>
           <td>The era name</td>
         </tr>
         <tr>
-          <td>Get life info about composer based on full name</td>
-          <td>/composers/life/:fullName</td>
+          <td>Get info about all eras</td>
+          <td>/eras</td>
           <td>GET</td>
           <td>
             Status: 200 <br />
-            Body: JSON object with information about a composer's life. <br />
-            Ex.
-            <code>
-              { "fullName": "Elizabeth Maconchy", "lifespan": "1907-1994",
-              "bio": "placeholder", "nationality": "Irish/English" }
-            </code>
+            Body: JSON object with information about all eras.
           </td>
           <td>
-            Status: 400 <br />
-            Body: "life does not exist"
+            Status: 500 <br />
+            Body: "Error: (error)"
           </td>
-          <td>The composer's full name</td>
+          <td>None</td>
         </tr>
       </tbody>
     </table>
