@@ -31,6 +31,11 @@ app.use(express.static("public"));
 
 app.use(bodyParser.json());
 
+let auth = require("./auth")(app);
+
+const passport = require("passport");
+require("./passport");
+
 //composers array
 
 // let topComposers = [
@@ -427,7 +432,11 @@ app.post("/users", async (req, res) => {
 
 app.post(
   "/users/:username/favouriteComposers/:composerId",
+  passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+    if (req.user.username !== req.params.username) {
+      return res.status(400).send("Permission denied");
+    }
     await Users.findOneAndUpdate(
       { username: req.params.username },
       { $push: { favouriteComposers: req.params.composerId } },
@@ -447,7 +456,11 @@ app.post(
 
 app.delete(
   "/users/:username/favouriteComposers/:composerId",
+  passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+    if (req.user.username !== req.params.username) {
+      return res.status(400).send("Permission denied");
+    }
     await Users.findOneAndUpdate(
       { username: req.params.username },
       { $pull: { favouriteComposers: req.params.composerId } },
@@ -464,44 +477,59 @@ app.delete(
 );
 
 //Delete a user by username
-app.delete("/users/:username", async (req, res) => {
-  await Users.findOneAndDelete({ username: req.params.username })
-    .then((user) => {
-      if (!user) {
-        res.status(400).send(req.params.username + " was not found");
-      } else {
-        res.status(200).send(req.params.username + " was deleted.");
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Error: " + error);
-    });
-});
+app.delete(
+  "/users/:username",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    if (req.user.username !== req.params.username) {
+      return res.status(400).send("Permission denied");
+    }
+    await Users.findOneAndDelete({ username: req.params.username })
+      .then((user) => {
+        if (!user) {
+          res.status(400).send(req.params.username + " was not found");
+        } else {
+          res.status(200).send(req.params.username + " was deleted.");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  }
+);
 
 //update user info by username
-app.put("/users/:username", async (req, res) => {
-  await Users.findOneAndUpdate(
-    { username: req.params.username },
-    {
-      $set: {
-        name: req.body.name,
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email,
-        birthday: req.body.birthday,
+
+app.put(
+  "/users/:username",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    if (req.user.username !== req.params.username) {
+      return res.status(400).send("Permission denied");
+    }
+    await Users.findOneAnUpdate(
+      { username: req.params.username },
+      {
+        $set: {
+          name: req.body.name,
+          username: req.body.username,
+          password: req.body.password,
+          email: req.body.email,
+          birthday: req.body.birthday,
+        },
       },
-    },
-    { new: true }
-  )
-    .then((updatedUser) => {
-      res.status(200).json(updatedUser);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+      { new: true }
+    )
+      .then((updatedUser) => {
+        res.json(updatedUser);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 // GET requests (READ)
 
@@ -511,16 +539,20 @@ app.get("/", (req, res) => {
 
 //get all composers
 
-app.get("/composers", async (req, res) => {
-  await Composers.find()
-    .then((composers) => {
-      res.status(201).json(composers);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get(
+  "/composers",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    await Composers.find()
+      .then((composers) => {
+        res.status(200).json(composers);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 //get all users
 app.get("/users", async (req, res) => {
@@ -536,49 +568,61 @@ app.get("/users", async (req, res) => {
 
 //GET data about a composer by her name
 
-app.get("/composers/:name", async (req, res) => {
-  await Composers.findOne({ name: req.params.name })
-    .then((composer) => {
-      if (composer) {
-        res.status(200).json(composer);
-      } else {
-        res.status(404).send("composer not found");
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(404).send("Error: " + err);
-    });
-});
+app.get(
+  "/composers/:name",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    await Composers.findOne({ name: req.params.name })
+      .then((composer) => {
+        if (composer) {
+          res.status(200).json(composer);
+        } else {
+          res.status(404).send("composer not found");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(404).send("Error: " + err);
+      });
+  }
+);
 
 //get info about all eras
 
-app.get("/eras", async (req, res) => {
-  await Eras.find()
-    .then((era) => {
-      res.status(200).json(era);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get(
+  "/eras",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    await Eras.find()
+      .then((era) => {
+        res.status(200).json(era);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 //get info about an era by name
-app.get("/eras/:name", async (req, res) => {
-  await Eras.findOne({ name: req.params.name })
-    .then((era) => {
-      if (era) {
-        res.status(200).json(era);
-      } else {
-        res.status(404).send("Era not found");
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get(
+  "/eras/:name",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    await Eras.findOne({ name: req.params.name })
+      .then((era) => {
+        if (era) {
+          res.status(200).json(era);
+        } else {
+          res.status(404).send("Era not found");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 // error handling
 
