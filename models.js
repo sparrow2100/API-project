@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 let eraSchema = mongoose.Schema({
   name: { type: String, required: true },
@@ -29,6 +30,13 @@ let userSchema = mongoose.Schema({
     { type: mongoose.Schema.Types.ObjectId, ref: "Composer" },
   ],
 });
+
+userSchema.statistics.hashPassword = (password) => {
+  return bcrypt.hashSync(password, 10);
+};
+userSchema.methods.validatePassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 let Composer = mongoose.model("Composer", composerSchema);
 let Era = mongoose.model("Era", eraSchema);
