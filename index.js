@@ -217,7 +217,7 @@ app.get("/", (req, res) => {
 
 app.get(
   "/composers",
-  passport.authenticate("jwt", { session: false }),
+
   async (req, res) => {
     await Composers.find()
       .then((composers) => {
