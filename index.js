@@ -184,7 +184,7 @@ app.put(
     if (req.user.username !== req.params.username) {
       return res.status(400).send("Permission denied");
     }
-    await Users.findOneAnUpdate(
+    await Users.findOneAndUpdate(
       { username: req.params.username },
       {
         $set: {
