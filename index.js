@@ -39,6 +39,9 @@ app.use(bodyParser.json());
 const cors = require("cors");
 let allowedOrigins = [
   "http://localhost:1234",
+  "http://localhost:57877",
+  "http://localhost:60803",
+  "http://localhost:4200",
   "https://women-composers.netlify.app",
 ];
 app.use(
