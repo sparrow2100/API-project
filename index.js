@@ -43,6 +43,7 @@ let allowedOrigins = [
   "http://localhost:60803",
   "http://localhost:4200",
   "https://women-composers.netlify.app",
+  "https://sparrow2100.github.io/newcomposers-Angular-client/",
 ];
 app.use(
   cors({
