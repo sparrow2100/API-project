@@ -41,6 +41,7 @@ let allowedOrigins = [
   "http://localhost:4200",
   "https://women-composers.netlify.app",
   "https://sparrow2100.github.io",
+  "http://composers-careerfoundry-bucket.s3-website-us-east-1.amazonaws.com",
 ];
 app.use(
   cors({
