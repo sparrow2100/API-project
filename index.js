@@ -17,6 +17,36 @@ const path = require("path");
 const app = express();
 const { check, validationResult } = require("express-validator");
 
+//aws-sdk integration imports
+const os = require("os");
+const { Readable } = require("stream");
+const fileUpload = require("express-fileupload");
+const {
+  S3Client,
+  ListObjectsV2Command,
+  PutObjectCommand,
+  GetObjectCommand,
+} = require("@aws-sdk/client-s3");
+
+const EnvS3BucketName = process.env.S3_BUCKET_NAME;
+
+//set up fileupload
+
+app.use(
+  fileUpload({
+    limits: { fileSize: 10 * 1024 * 1024 },
+    useTempFiles: true,
+    tempFileDir: os.tmpdir(),
+  })
+);
+
+//set up S3
+const s3Client = new S3Client({
+  region: "us-east-1",
+  endpoint: "http://localhost:4566",
+  forcePathStyle: true,
+});
+
 //create a write stream
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
@@ -383,6 +413,74 @@ app.get(
       });
   }
 );
+
+//list objects in the bucket
+app.get("/images", (req, res) => {
+  const listObjectsParams = {
+    Bucket: EnvS3BucketName,
+  };
+  s3Client
+    .send(new ListObjectsV2Command(listObjectsParams))
+    .then((listObjectsResponse) => {
+      res.send(listObjectsResponse);
+    });
+});
+
+//get an object
+app.get("/images/:key", (req, res) => {
+  const key = req.params.key;
+  if (!key) {
+    return res.status(400).send("A key is required");
+  }
+
+  console.log(key);
+  const getObjectParams = {
+    Bucket: EnvS3BucketName,
+    Key: key,
+  };
+
+  try {
+    const command = new GetObjectCommand(getObjectParams);
+    const getObjectResponse = s3Client.send(command);
+
+    const responseBody = [];
+    getObjectResponse.Body.on("data", (chunk) => {
+      console.log("getting data", chunk);
+      responseBody.push(chunk);
+    });
+    getObjectResponse.Body.on("end", () => {
+      res.setHeader(
+        "Content-Type",
+        getObjectResponse.ContentType || "application/octet-stream"
+      );
+      res.send(Buffer.from(responseBody));
+    });
+  } catch (err) {
+    console.error("Error fetching object from S3:", err);
+    res.status(404).send("Error fetching object from S3");
+  }
+});
+
+//upload an object
+app.post("/images", (req, res) => {
+  const fileStream = Readable.from(req.files.image.data);
+
+  const params = {
+    Bucket: EnvS3BucketName,
+    Key: req.files.image.name,
+    Body: fileStream,
+  };
+
+  s3Client
+    .send(new PutObjectCommand(params))
+    .then((putObjectResponse) => {
+      res.send(putObjectResponse);
+    })
+    .catch((err) => {
+      res.status(500);
+      res.send(err);
+    });
+});
 
 // error handling
 
