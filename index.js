@@ -29,6 +29,8 @@ const {
 } = require("@aws-sdk/client-s3");
 
 const EnvS3BucketName = process.env.S3_BUCKET_NAME;
+const EnvS3Endpoint = process.env.S3_ENDPOINT;
+const EnvAwsRegion = process.env.AWS_REGION;
 
 //set up fileupload
 
@@ -42,8 +44,8 @@ app.use(
 
 //set up S3
 const s3Client = new S3Client({
-  region: "us-east-1",
-  endpoint: "http://localhost:4566",
+  region: EnvAwsRegion,
+  endpoint: EnvS3Endpoint,
   forcePathStyle: true,
 });
 
