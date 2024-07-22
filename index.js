@@ -478,6 +478,7 @@ app.post("/images", (req, res) => {
     Bucket: EnvS3BucketName,
     Key: req.files.image.name,
     Body: fileStream,
+    ContentType: req.files.image.mimetype,
   };
 
   s3Client
