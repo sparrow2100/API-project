@@ -474,7 +474,7 @@ app.post("/images", (req, res) => {
 
   const params = {
     Bucket: EnvS3BucketName,
-    Key: req.files.image.name,
+    Key: path.join('original-images', req.files.image.name),
     Body: fileStream,
     ContentType: req.files.image.mimetype,
   };
