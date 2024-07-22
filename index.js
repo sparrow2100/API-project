@@ -465,7 +465,14 @@ app.get("/images/:key", (req, res) => {
 
 //upload an object
 app.post("/images", (req, res) => {
-  const fileStream = Readable.from(req.files.image.data);
+  if (!req.files?.image?.tempFilePath) {
+    res.status(400);
+    res.json({error: "Did not receive a valid image with key 'image'"});
+    res.end();
+    return;
+  }
+
+  const fileStream = fs.createReadStream(req.files.image.tempFilePath);
 
   const params = {
     Bucket: EnvS3BucketName,
