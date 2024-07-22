@@ -436,7 +436,6 @@ app.get("/images/:key", async (req, res) => {
     return res.status(400).send("A key is required");
   }
 
-  console.log(key);
   const getObjectParams = {
     Bucket: EnvS3BucketName,
     Key: key,
