@@ -1,3 +1,4 @@
+const streamConsumers = require('node:stream/consumers');
 const mongoose = require("mongoose");
 const Models = require("./models.js");
 const Composers = Models.Composer;
@@ -429,7 +430,7 @@ app.get("/images", (req, res) => {
 });
 
 //get an object
-app.get("/images/:key", (req, res) => {
+app.get("/images/:key", async (req, res) => {
   const key = req.params.key;
   if (!key) {
     return res.status(400).send("A key is required");
@@ -443,20 +444,18 @@ app.get("/images/:key", (req, res) => {
 
   try {
     const command = new GetObjectCommand(getObjectParams);
-    const getObjectResponse = s3Client.send(command);
+    const getObjectResponse = await s3Client.send(command);
+    res.status(getObjectResponse.Body.statusCode);
+    
+    for (const [key, value] of Object.entries(getObjectResponse.Body.headers)) {
+      res.append(key, value);
+    }
 
-    const responseBody = [];
-    getObjectResponse.Body.on("data", (chunk) => {
-      console.log("getting data", chunk);
-      responseBody.push(chunk);
-    });
-    getObjectResponse.Body.on("end", () => {
-      res.setHeader(
-        "Content-Type",
-        getObjectResponse.ContentType || "application/octet-stream"
-      );
-      res.send(Buffer.from(responseBody));
-    });
+    res.set('content-type', getObjectResponse.ContentType);
+
+    const buff = await streamConsumers.buffer(getObjectResponse.Body);
+    res.send(buff);
+    res.end();
   } catch (err) {
     console.error("Error fetching object from S3:", err);
     res.status(404).send("Error fetching object from S3");
