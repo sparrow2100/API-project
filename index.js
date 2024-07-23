@@ -421,7 +421,6 @@ app.get(
 app.get("/images", (req, res) => {
   const listObjectsParams = {
     Bucket: EnvS3BucketName,
-    Prefix: 'resized-images/'
   };
   s3Client
     .send(new ListObjectsV2Command(listObjectsParams))
