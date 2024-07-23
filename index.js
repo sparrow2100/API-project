@@ -431,8 +431,8 @@ app.get("/images", (req, res) => {
 });
 
 //get an object
-app.get("/images/:key", async (req, res) => {
-  const key = req.params.key;
+app.get("/images/resized-images/:name", async (req, res) => {
+  const key = path.join('resized-images', req.params.name);
   if (!key) {
     return res.status(400).send("A key is required");
   }
